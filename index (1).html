@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>分組問題｜A-7-5 互動式學習講義</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  body{font-family:'Noto Sans TC','PingFang TC','Microsoft JhengHei',system-ui,sans-serif;background:#f8fafc;color:#1e293b;font-size:19px;line-height:1.7}
+  /* 全頁字級：比 Tailwind 預設各大 3px */
+  .text-xs{font-size:15px!important;line-height:1.65!important}
+  .text-sm{font-size:17px!important;line-height:1.7!important}
+  .text-base{font-size:19px!important}
+  .text-lg{font-size:21px!important}
+  .text-xl{font-size:23px!important}
+  .text-2xl{font-size:27px!important}
+  .text-3xl{font-size:33px!important}
+  .text-4xl{font-size:39px!important}
+  @media(min-width:768px){.md\:text-4xl{font-size:39px!important}}
+  .hidden{display:none!important}
+  .katex{font-size:1.06em}
+  .katex-display{margin:.5em 0;overflow-x:auto;overflow-y:hidden}
+  button{cursor:pointer}
+  .highlight{background:linear-gradient(transparent 58%,#fff0a8 58%);font-weight:800;padding:0 2px}
+  .opt-btn{padding:.625rem .9rem;text-align:left;background:#fff;border:1px solid #cbd5e1;border-radius:.5rem;font-size:15px;font-weight:700;transition:.15s}
+  .opt-btn:hover{border-color:#3b82f6;background:#eff6ff}
+  .opt-btn.ok{background:#dcfce7;border-color:#22c55e;color:#166534}
+  .opt-btn.bad{background:#fee2e2;border-color:#f87171;color:#991b1b}
+  .fb{display:none;margin-top:.6rem;padding:.6rem .8rem;border-radius:.5rem;font-size:15px}
+  .fb.show{display:block}
+  .fb.good{background:#f0fdf4;border:1px solid #86efac;color:#166534}
+  .fb.warn{background:#fef2f2;border:1px solid #fca5a5;color:#991b1b}
+  .note-ok{background:#f0fdf4;border:1px solid #86efac;color:#166534}
+  .note-warn{background:#fffbeb;border:1px solid #fcd34d;color:#92400e}
+  .note-info{background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af}
+  .btn-main{background:#2563eb;color:#fff;font-weight:700;border-radius:.5rem;padding:.45rem .9rem;font-size:15px}
+  .btn-main:hover{background:#1d4ed8}
+  .btn-green{background:#16a34a;color:#fff;font-weight:700;border-radius:.5rem;padding:.45rem .9rem;font-size:15px}
+  .btn-green:hover{background:#15803d}
+  .btn-ghost{background:#fff;border:1px solid #cbd5e1;color:#334155;font-weight:700;border-radius:.5rem;padding:.4rem .8rem;font-size:15px}
+  .btn-ghost:hover{background:#eff6ff;border-color:#93c5fd}
+  .pill{border:1px solid #e2e8f0;color:#94a3b8;border-radius:999px;padding:.35rem .5rem;text-align:center;font-size:15px;font-weight:700;background:#fff;transition:.2s}
+  .pill.active{color:#047857;border-color:#6ee7b7;background:#ecfdf5}
+  .pill.done{color:#166534;border-color:#86efac;background:#f0fdf4}
+  .story-part,.math-piece{display:inline-flex;align-items:center;justify-content:center;padding:.4rem .7rem;border:1px solid #cbd5e1;border-radius:.6rem;background:#fff;opacity:.3;transform:translateY(3px);transition:.35s;font-size:15px;font-weight:700}
+  .story-part.on,.math-piece.on{opacity:1;transform:none;border-color:#93c5fd;background:#eff6ff}
+  .op-line,.v-line{display:none;padding:.55rem .8rem;margin:.4rem 0;border-radius:.5rem;border:1px solid #e2e8f0;background:#fff;text-align:center;font-size:15px}
+  .op-line.show,.v-line.show{display:block;animation:fadeUp .3s ease both}
+  .op-line.focus{background:#eff6ff;border-color:#bfdbfe}
+  .op-line.success,.v-line.success{background:#f0fdf4;border-color:#86efac}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+</style>
+</head>
+<body class="p-4 md:p-8">
+<div class="max-w-4xl mx-auto">
+
+  <header class="text-center mb-5">
+    <h1 class="text-3xl md:text-4xl font-black text-slate-800 mb-1">📘 分組問題</h1>
+    <p class="text-sm text-slate-500 font-bold">A-7-5 互動式學習講義</p>
+  </header>
+
+  <!-- 固定進度列 -->
+  <div class="sticky top-0 z-30 bg-slate-50/95 backdrop-blur py-3 mb-4 border-b border-slate-200">
+    <div id="progressStatus" class="text-center text-xs font-bold text-slate-500 mb-2">目前進行：步驟 1｜設未知數</div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+      <div class="pill active" id="s1">① 設未知數</div>
+      <div class="pill" id="s2">② 列方程式</div>
+      <div class="pill" id="s3">③ 調整係數並求解</div>
+      <div class="pill" id="s4">④ 回答與驗算</div>
+    </div>
+  </div>
+
+  <!-- ===== 步驟 1 ===== -->
+  <section id="step1" data-step="1" class="bg-white rounded-xl shadow-md p-6 border border-emerald-200 mb-6">
+    <h2 class="font-bold text-lg text-emerald-700 mb-3">🚩 步驟 1　依題意假設兩個適當的未知數</h2>
+    <div class="p-4 bg-slate-50 rounded-lg border-l-4 border-blue-500 text-sm mb-4 space-y-2">
+      <p>排球社某次活動中，若<span class="highlight">男生每 $2$ 人一組、女生每 $3$ 人一組，兩者合計可分成 $24$ 組</span>。</p>
+      <p>若改成<span class="highlight">男生每 $3$ 人一組、女生每 $4$ 人一組，兩者合計可分成 $17$ 組</span>。</p>
+      <p><b>請問男社員與女社員各有多少人？</b></p>
+    </div>
+    <p class="font-bold text-sm mb-2">題目真正要我們找的是哪兩個未知數？</p>
+    <div class="grid gap-2" id="c1">
+      <button class="opt-btn" onclick="q1(this,false)">$24$ 組與 $17$ 組</button>
+      <button class="opt-btn" onclick="q1(this,true)">男社員人數與女社員人數</button>
+      <button class="opt-btn" onclick="q1(this,false)">每組的人數</button>
+    </div>
+    <div class="fb" id="fb1"></div>
+    <div id="unknownArea" class="hidden mt-4">
+      <div class="p-4 rounded-lg note-info text-center font-bold mb-3">設男社員有 $x$ 人，女社員有 $y$ 人。</div>
+      <button class="btn-main" aria-label="步驟 1 完成" onclick="completeStep(1)">步驟 1 完成</button>
+    </div>
+  </section>
+
+  <!-- ===== 步驟 2 ===== -->
+  <section id="step2" data-step="2" class="hidden bg-white rounded-xl shadow-md p-6 border border-emerald-200 mb-6">
+    <h2 class="font-bold text-lg text-emerald-700 mb-3">🚩 步驟 2　根據題意列出二元一次聯立方程式</h2>
+    <div class="p-4 bg-slate-50 rounded-lg border text-sm mb-4 space-y-1">
+      <div class="font-bold">📌 題目回顧</div>
+      <p>男生每 $2$ 人一組、女生每 $3$ 人一組，兩者合計 <b>$24$ 組</b>。</p>
+      <p>男生每 $3$ 人一組、女生每 $4$ 人一組，兩者合計 <b>$17$ 組</b>。</p>
+      <p>已設：男社員有 $x$ 人，女社員有 $y$ 人。</p>
+    </div>
+    <p class="font-bold text-sm mb-2">先想一個最關鍵的問題：有 $x$ 位男生，每 $2$ 人一組，會有幾組？</p>
+    <div class="grid gap-2" id="c2">
+      <button class="opt-btn" onclick="q2(this,false)">$2x$ 組</button>
+      <button class="opt-btn" onclick="q2(this,false)">$x+2$ 組</button>
+      <button class="opt-btn" onclick="q2(this,true)">$\dfrac{x}{2}$ 組</button>
+    </div>
+    <div class="fb" id="fb2"></div>
+
+    <div id="groupVisual" class="hidden mt-5 space-y-5">
+      <!-- 人形分組圖 -->
+      <div class="bg-slate-50 p-5 rounded-xl border">
+        <h4 class="font-bold text-sm mb-2">🛠️ 先用具體數字想：$8$ 位男生，每 $2$ 人一組</h4>
+        <div id="peopleSvg" class="bg-white rounded-lg border p-3"></div>
+        <div class="text-center font-bold text-sm mt-2">$8 \div 2 = 4$</div>
+      </div>
+
+      <!-- 文字 → 算式 -->
+      <div class="bg-slate-50 p-5 rounded-xl border space-y-3">
+        <h4 class="font-bold text-sm">🛠️ 把句子翻成算式</h4>
+        <div class="grid grid-cols-1 sm:grid-cols-[1fr_auto_1fr] items-center gap-2">
+          <div class="p-3 bg-white rounded-lg border text-center text-sm font-bold">如果男生有 $x$ 人<br>每 $2$ 人一組</div>
+          <div class="text-center font-bold text-blue-600">→</div>
+          <div class="p-3 bg-white rounded-lg border text-center">$x\div2=\dfrac{x}{2}$ 組</div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-[1fr_auto_1fr] items-center gap-2">
+          <div class="p-3 bg-white rounded-lg border text-center text-sm font-bold">如果女生有 $y$ 人<br>每 $3$ 人一組</div>
+          <div class="text-center font-bold text-blue-600">→</div>
+          <div class="p-3 bg-white rounded-lg border text-center">$y\div3=\dfrac{y}{3}$ 組</div>
+        </div>
+      </div>
+
+      <!-- 動態示範 1 -->
+      <div class="bg-slate-50 p-5 rounded-xl border">
+        <h4 class="font-bold text-sm mb-1">🛠️ 動態示範：題意怎麼變成方程式？</h4>
+        <p class="text-xs text-slate-600 mb-3">按「下一步」，觀察題目中的每一段文字如何對應到數學式。</p>
+        <div class="flex flex-wrap gap-2 justify-center mb-3">
+          <span class="story-part" id="st1a">男生每 $2$ 人一組</span>
+          <span class="story-part" id="st1b">女生每 $3$ 人一組</span>
+          <span class="story-part" id="st1c">共分成 $24$ 組</span>
+        </div>
+        <div class="flex flex-wrap gap-2 justify-center items-center min-h-[3rem] mb-3">
+          <span class="math-piece" id="mp1a">$\dfrac{x}{2}$</span>
+          <span class="math-piece" id="mp1plus">$+$</span>
+          <span class="math-piece" id="mp1b">$\dfrac{y}{3}$</span>
+          <span class="math-piece" id="mp1eq">$=$</span>
+          <span class="math-piece" id="mp1c">$24$</span>
+        </div>
+        <div class="flex flex-wrap gap-2 justify-center">
+          <button class="btn-ghost" aria-label="重新播放" onclick="resetEquationBuild(1)">重新播放</button>
+          <button class="btn-main" id="eqBuildBtn1" aria-label="下一步" onclick="nextEquationBuild(1)">下一步</button>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="font-bold text-sm mb-2">第一種分組方式：男生每 $2$ 人一組，女生每 $3$ 人一組，分成 $24$ 組</h3>
+        <div class="p-4 rounded-lg note-info text-center">$$\underbrace{\frac{x}{2}}_{\text{男生組數}}+\underbrace{\frac{y}{3}}_{\text{女生組數}}=\underbrace{24}_{\text{總組數}}$$</div>
+      </div>
+
+      <!-- 動態示範 2 -->
+      <div class="bg-slate-50 p-5 rounded-xl border">
+        <h4 class="font-bold text-sm mb-1">🛠️ 換第二種分組方式，再自己看一次</h4>
+        <div class="flex flex-wrap gap-2 justify-center my-3">
+          <span class="story-part" id="st2a">男生每 $3$ 人一組</span>
+          <span class="story-part" id="st2b">女生每 $4$ 人一組</span>
+          <span class="story-part" id="st2c">共分成 $17$ 組</span>
+        </div>
+        <div class="flex flex-wrap gap-2 justify-center items-center min-h-[3rem] mb-3">
+          <span class="math-piece" id="mp2a">$\dfrac{x}{3}$</span>
+          <span class="math-piece" id="mp2plus">$+$</span>
+          <span class="math-piece" id="mp2b">$\dfrac{y}{4}$</span>
+          <span class="math-piece" id="mp2eq">$=$</span>
+          <span class="math-piece" id="mp2c">$17$</span>
+        </div>
+        <div class="flex flex-wrap gap-2 justify-center">
+          <button class="btn-ghost" aria-label="重新播放" onclick="resetEquationBuild(2)">重新播放</button>
+          <button class="btn-main" id="eqBuildBtn2" aria-label="下一步" onclick="nextEquationBuild(2)">下一步</button>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="font-bold text-sm mb-2">第二種分組方式：男生每 $3$ 人一組，女生每 $4$ 人一組，分成 $17$ 組</h3>
+        <div class="p-4 rounded-lg note-info text-center">$$\underbrace{\frac{x}{3}}_{\text{男生組數}}+\underbrace{\frac{y}{4}}_{\text{女生組數}}=\underbrace{17}_{\text{總組數}}$$</div>
+      </div>
+
+      <div>
+        <p class="font-bold text-sm mb-2">將上述兩式組合成二元一次聯立方程式：</p>
+        <div class="p-4 rounded-lg bg-white border text-center">$$\begin{cases}\dfrac{x}{2}+\dfrac{y}{3}=24\\[6pt]\dfrac{x}{3}+\dfrac{y}{4}=17\end{cases}$$</div>
+      </div>
+      <button class="btn-main" aria-label="步驟 2 完成" onclick="completeStep(2)">步驟 2 完成</button>
+    </div>
+  </section>
+
+  <!-- ===== 步驟 3 ===== -->
+  <section id="step3" data-step="3" class="hidden bg-white rounded-xl shadow-md p-6 border border-emerald-200 mb-6">
+    <h2 class="font-bold text-lg text-emerald-700 mb-3">🚩 步驟 3　先處理分數係數，再解聯立方程式</h2>
+    <div class="p-4 bg-slate-50 rounded-lg border text-center mb-4">$$\begin{cases}\dfrac{x}{2}+\dfrac{y}{3}=24\\[6pt]\dfrac{x}{3}+\dfrac{y}{4}=17\end{cases}$$</div>
+
+    <div class="bg-emerald-50 rounded-lg p-4 text-sm mb-4">
+      <b>★ 這一步才是本題真正想練習的技巧：</b>遇到「分數型」的聯立方程式時，不急著直接消去 $x$ 或 $y$。每一條方程式都要先各自觀察分母，再利用最小公倍數把分數係數整理成整數。
+    </div>
+
+    <!-- 整理第一式 -->
+    <div class="bg-slate-50 p-5 rounded-xl border mb-4">
+      <h4 class="font-bold text-sm mb-2">① 先整理第一式</h4>
+      <div class="p-3 bg-white rounded-lg border text-center mb-2">$$\frac{x}{2}+\frac{y}{3}=24$$</div>
+      <p class="text-xs text-slate-600 mb-3">第一式的分母是 $2$ 和 $3$，最小公倍數是 $6$。</p>
+      <p class="font-bold text-sm mb-2">第一式左右兩邊同乘多少，最有助於把分數係數整理成較簡單的整數？</p>
+      <div class="grid gap-2" id="c3a">
+        <button class="opt-btn" onclick="firstLCMChoice(this,2)">同乘 $2$</button>
+        <button class="opt-btn" onclick="firstLCMChoice(this,6)">同乘 $6$</button>
+        <button class="opt-btn" onclick="firstLCMChoice(this,12)">同乘 $12$</button>
+      </div>
+      <div class="fb" id="fbLCM1"></div>
+      <p class="text-xs text-slate-500 mt-2">提示：能消掉分母不代表一定最簡潔；這裡希望找「最小公倍數」，讓後面的係數不要變得太大。</p>
+
+      <div id="firstTransform" class="hidden mt-4 space-y-3">
+        <div class="grid grid-cols-1 sm:grid-cols-[1fr_auto_1fr] items-center gap-2">
+          <div class="p-3 bg-white rounded-lg border text-center"><div class="text-xs font-bold text-slate-500">原本第一式</div>$\dfrac{x}{2}+\dfrac{y}{3}=24$</div>
+          <div class="text-center text-sm font-bold text-amber-700">整式 $\times 6$ →</div>
+          <div class="p-3 bg-white rounded-lg border text-center"><div class="text-xs font-bold text-slate-500">整理後</div>$3x+2y=144$</div>
+        </div>
+        <div class="p-3 bg-white rounded-lg border text-center">$$6\left(\frac{x}{2}+\frac{y}{3}\right)=6(24)$$$$3x+2y=144$$</div>
+      </div>
+    </div>
+
+    <!-- 整理第二式 -->
+    <div id="secondEquationStep" class="hidden bg-slate-50 p-5 rounded-xl border mb-4">
+      <h4 class="font-bold text-sm mb-2">② 再整理第二式</h4>
+      <div class="p-3 bg-white rounded-lg border text-center mb-2">$$\frac{x}{3}+\frac{y}{4}=17$$</div>
+      <p class="text-xs text-slate-600 mb-3">第二式的分母是 $3$ 和 $4$，最小公倍數是 $12$。</p>
+      <p class="font-bold text-sm mb-2">第二式左右兩邊同乘多少，最有助於把分數係數整理成較簡單的整數？</p>
+      <div class="grid gap-2" id="c3b">
+        <button class="opt-btn" onclick="secondLCMChoice(this,false)">同乘 $4$</button>
+        <button class="opt-btn" onclick="secondLCMChoice(this,false)">同乘 $6$</button>
+        <button class="opt-btn" onclick="secondLCMChoice(this,true)">同乘 $12$</button>
+      </div>
+      <div class="fb" id="fbLCM2"></div>
+
+      <div id="secondTransform" class="hidden mt-4 space-y-3">
+        <div class="grid grid-cols-1 sm:grid-cols-[1fr_auto_1fr] items-center gap-2">
+          <div class="p-3 bg-white rounded-lg border text-center"><div class="text-xs font-bold text-slate-500">原本第二式</div>$\dfrac{x}{3}+\dfrac{y}{4}=17$</div>
+          <div class="text-center text-sm font-bold text-amber-700">整式 $\times 12$ →</div>
+          <div class="p-3 bg-white rounded-lg border text-center"><div class="text-xs font-bold text-slate-500">整理後</div>$4x+3y=204$</div>
+        </div>
+        <div class="p-3 bg-white rounded-lg border text-center">$$12\left(\frac{x}{3}+\frac{y}{4}\right)=12(17)$$$$4x+3y=204$$</div>
+      </div>
+    </div>
+
+    <div id="readyToSolve" class="hidden bg-emerald-50 rounded-lg p-4 text-sm mb-4">
+      <b>③ 兩式都整理完成後，再進入一般的消去法</b>
+      <div class="p-3 mt-2 bg-white rounded-lg border text-center">$$\begin{cases}3x+2y=144\\4x+3y=204\end{cases}$$</div>
+      <p class="text-xs mt-2">注意：第一式乘 $6$，第二式乘 $12$。兩條方程式是分開觀察、分開整理的。</p>
+    </div>
+
+    <div id="methodArea" class="hidden">
+      <p class="font-bold text-sm mb-2">整理完成後，你想用哪一種方法繼續？</p>
+      <div class="grid sm:grid-cols-2 gap-2 mb-4">
+        <button class="btn-ghost text-left" aria-label="選擇加減消去法" onclick="chooseMethod('add')"><b>加減消去法</b><br><span class="text-xs font-normal">調整係數後，讓其中一個未知數的係數相同，再相減。</span></button>
+        <button class="btn-ghost text-left" aria-label="選擇代入消去法" onclick="chooseMethod('sub')"><b>代入消去法</b><br><span class="text-xs font-normal">由其中一式整理出 $x$ 或 $y$，再代入另一式。</span></button>
+      </div>
+
+      <div id="solver" class="hidden bg-slate-50 p-5 rounded-xl border mb-4">
+        <p class="font-bold text-sm mb-2" id="methodTitle"></p>
+        <div class="text-xs text-center text-slate-500 mb-1" id="opNote">按「下一步」，觀察式子如何一步一步改變。</div>
+        <div id="solveLines"></div>
+        <div class="flex flex-wrap gap-2 mt-3">
+          <button class="btn-ghost" aria-label="重新播放" onclick="restartSolve()">重新播放</button>
+          <button class="btn-main" id="nextSolve" aria-label="下一步" onclick="revealNext()">下一步</button>
+          <button class="btn-green hidden" id="finishSolve" aria-label="得到 x 等於 24，y 等於 36" onclick="finishMethod()">得到 $x=24,\;y=36$</button>
+        </div>
+      </div>
+
+      <div id="reflectionPanel" class="hidden p-4 rounded-xl border bg-amber-50 border-amber-300">
+        <div class="p-3 rounded-lg border-l-4 border-amber-400 bg-amber-100 text-sm font-bold mb-3" id="reflectionDialogue">🤔 這樣真的好算嗎？先別急著進下一題，換另一種方法算一次，看看哪一種比較省步驟。</div>
+        <div class="flex flex-wrap gap-2 text-xs font-bold mb-3">
+          <span id="statusAdd" class="px-3 py-1 rounded-full border bg-white text-slate-500">加減消去法：尚未完成</span>
+          <span id="statusSub" class="px-3 py-1 rounded-full border bg-white text-slate-500">代入消去法：尚未完成</span>
+        </div>
+        <div id="compareQuestion" class="hidden">
+          <p class="font-bold text-sm mb-2">兩種方法都走過一次後，你覺得這一題哪一種方法比較簡潔？</p>
+          <div class="grid gap-2" id="c3c">
+            <button class="opt-btn" onclick="compareMethod(this,'add')">加減消去法</button>
+            <button class="opt-btn" onclick="compareMethod(this,'sub')">代入消去法</button>
+            <button class="opt-btn" onclick="compareMethod(this,'same')">差不多</button>
+          </div>
+          <div class="fb" id="fbCompare"></div>
+          <div id="compareSummary" class="hidden mt-3 p-4 rounded-lg note-ok text-sm">
+            <b>小統整：</b>這題把分母整理掉後得到 $3x+2y=144$、$4x+3y=204$。用加減消去法只要把 $y$ 的係數調成 $6$，兩式相減就能很快得到 $x=24$。代入法也能解，但中途會再次出現分數，因此本題用<b>加減消去法較簡潔</b>。
+            <div class="mt-3"><button class="btn-green" aria-label="我知道了，進入步驟 4" onclick="completeStep(3)">我知道了，進入步驟 4</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 步驟 4 ===== -->
+  <section id="step4" data-step="4" class="hidden bg-white rounded-xl shadow-md p-6 border border-emerald-200 mb-6">
+    <h2 class="font-bold text-lg text-emerald-700 mb-3">🚩 步驟 4　依題意寫出正確答案，並驗算</h2>
+    <p class="font-bold text-sm mb-2">求出 $x=24,\;y=36$ 後，答案怎麼寫才完整？</p>
+    <div class="grid gap-2" id="c4">
+      <button class="opt-btn" onclick="q4(this,false)">$x=24,\;y=36$</button>
+      <button class="opt-btn" onclick="q4(this,true)">男社員 $24$ 人，女社員 $36$ 人</button>
+      <button class="opt-btn" onclick="q4(this,false)">社員共有 $60$ 人</button>
+    </div>
+    <div class="fb" id="fb4"></div>
+
+    <div id="verifyArea" class="hidden mt-4">
+      <div class="p-4 rounded-lg note-ok text-center font-bold mb-4">答案：男社員有 $24$ 人，女社員有 $36$ 人。</div>
+      <div class="bg-slate-50 p-5 rounded-xl border">
+        <h4 class="font-bold text-sm mb-1">🔍 代回原題驗算</h4>
+        <p class="text-xs text-slate-600 mb-3">從原本的兩個方程式出發，按「下一步」把 $x=24$、$y=36$ 依序代回，確認兩個條件都成立。</p>
+        <div class="v-line show" id="vline0"><div class="text-xs font-bold text-slate-500">原本的聯立方程式</div>$$\begin{cases}\dfrac{x}{2}+\dfrac{y}{3}=24\\[5pt]\dfrac{x}{3}+\dfrac{y}{4}=17\end{cases}\qquad x=24,\;y=36$$</div>
+        <div class="v-line" id="vline1"><div class="text-xs font-bold text-slate-500">先驗算第一種分組方式：代入 $x=24,\;y=36$</div>$$\frac{24}{2}+\frac{36}{3}=24$$</div>
+        <div class="v-line success" id="vline2">$$12+12=24\quad\checkmark$$第一個條件成立。</div>
+        <div class="v-line" id="vline3"><div class="text-xs font-bold text-slate-500">再驗算第二種分組方式：代入 $x=24,\;y=36$</div>$$\frac{24}{3}+\frac{36}{4}=17$$</div>
+        <div class="v-line success" id="vline4">$$8+9=17\quad\checkmark$$第二個條件也成立，所以答案符合原題兩個分組條件。</div>
+        <div class="flex flex-wrap gap-2 mt-3">
+          <button class="btn-ghost" aria-label="重新播放" onclick="restartVerify()">重新播放</button>
+          <button class="btn-main" id="nextVerify" aria-label="下一步" onclick="revealVerifyNext()">下一步</button>
+          <button class="btn-green hidden" id="finishAllBtn" aria-label="完成整題" onclick="finishAll()">完成整題</button>
+        </div>
+      </div>
+      <div id="finalMsg" class="hidden mt-4 p-4 rounded-lg note-ok text-sm font-bold">🎉 四個步驟都完成了！你不只求出答案，也完成了「文字 → 方程式 → 整理分數係數 → 求解 → 驗算」的完整流程。</div>
+    </div>
+  </section>
+
+  <footer class="text-center text-xs text-slate-400 mt-8">A-7-5 互動式學習講義　分組問題</footer>
+</div>
+
+<script>
+const R = String.raw;
+const katexConfig = {
+  delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],
+  ignoredClasses:['no-katex'], throwOnError:false, strict:'ignore'
+};
+function typeset(el){ if(window.renderMathInElement){ renderMathInElement(el || document.body, katexConfig); } }
+function $id(i){ return document.getElementById(i); }
+function show(id){ $id(id).classList.remove('hidden'); }
+function hide(id){ $id(id).classList.add('hidden'); }
+
+let highestUnlocked = 1;
+const completed = new Set();
+let solveIndex = 0, solveSteps = [], selectedMethod = '';
+const finishedMethods = new Set();
+let verifyIndex = 1;
+
+/* 人形分組圖 */
+function personSvg(cx, cy, c){
+  return `<circle cx="${cx}" cy="${cy-9}" r="6" fill="${c}"/><rect x="${cx-8}" y="${cy-2}" width="16" height="16" rx="6" fill="${c}"/>`;
+}
+function buildPeople(){
+  let a = '', b = '';
+  for(let i = 0; i < 8; i++){ a += personSvg(30 + i * 38, 26, '#64748b'); }
+  for(let g = 0; g < 4; g++){
+    const x = 12 + g * 78;
+    b += `<rect x="${x}" y="6" width="68" height="44" rx="9" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>` + personSvg(x + 20, 28, '#2563eb') + personSvg(x + 48, 28, '#2563eb');
+  }
+  $id('peopleSvg').innerHTML =
+    `<svg class="no-katex" viewBox="0 0 330 56" width="100%" style="max-width:460px;display:block;margin:0 auto" role="img" aria-label="八位男生排成一排">${a}</svg>
+     <div class="text-center font-bold text-blue-600 text-sm my-1">↓ 分組 ↓</div>
+     <svg class="no-katex" viewBox="0 0 330 56" width="100%" style="max-width:460px;display:block;margin:0 auto" role="img" aria-label="八位男生每二人一組，分成四組">${b}</svg>`;
+}
+
+function setFeedback(id, ok, html){
+  const el = $id(id);
+  el.className = 'fb show ' + (ok ? 'good' : 'warn');
+  el.innerHTML = html;
+  typeset(el);
+}
+function clearChoices(box){ document.querySelectorAll('#' + box + ' .opt-btn').forEach(b => b.classList.remove('ok','bad')); }
+
+function q1(btn, ok){
+  clearChoices('c1'); btn.classList.add(ok ? 'ok' : 'bad');
+  if(ok){ setFeedback('fb1', true, '對！$24$ 與 $17$ 都是已知條件；真正不知道的是男、女社員各有多少人。'); show('unknownArea'); typeset($id('unknownArea')); }
+  else { setFeedback('fb1', false, '小提示：看看題目的最後一句，想一想我們要找的是哪兩個數量呢？'); }
+}
+
+const equationBuildState = {1:0, 2:0};
+function resetEquationBuild(n){
+  equationBuildState[n] = 0;
+  ['a','b','c'].forEach(k => $id(`st${n}${k}`).classList.remove('on'));
+  ['a','plus','b','eq','c'].forEach(k => $id(`mp${n}${k}`).classList.remove('on'));
+  $id('eqBuildBtn' + n).textContent = '下一步';
+}
+function nextEquationBuild(n){
+  const i = equationBuildState[n];
+  const seq = [[`st${n}a`,`mp${n}a`],[`st${n}b`,`mp${n}plus`,`mp${n}b`],[`st${n}c`,`mp${n}eq`,`mp${n}c`]];
+  if(i < seq.length){ seq[i].forEach(id => $id(id).classList.add('on')); equationBuildState[n]++; }
+  if(equationBuildState[n] >= seq.length){ $id('eqBuildBtn' + n).textContent = '完成'; }
+}
+
+function q2(btn, ok){
+  clearChoices('c2'); btn.classList.add(ok ? 'ok' : 'bad');
+  if(ok){
+    setFeedback('fb2', true, '正確！組數 ＝ 總人數 ÷ 每組人數，所以是 $x \\div 2 = \\dfrac{x}{2}$。');
+    show('groupVisual'); buildPeople(); typeset($id('groupVisual'));
+  } else {
+    setFeedback('fb2', false, '先用 $8$ 人想看看：$8$ 人每 $2$ 人一組，應該做 $8\\times2$ 還是 $8\\div2$？');
+  }
+}
+
+function firstLCMChoice(btn, value){
+  clearChoices('c3a');
+  if(value === 6){
+    btn.classList.add('ok');
+    setFeedback('fbLCM1', true, '對！$6$ 是 $2$ 和 $3$ 的最小公倍數。左右兩邊同乘 $6$，可以消掉分母，又不會讓係數變得太大。');
+    show('firstTransform'); show('secondEquationStep'); typeset($id('step3'));
+  } else if(value === 12){
+    btn.classList.add('bad');
+    setFeedback('fbLCM1', false, '$12$ 的確也能把分母消掉，但係數會變得更大。為了讓後續計算更簡潔，這裡優先選 $2$ 和 $3$ 的最小公倍數 $6$。');
+  } else {
+    btn.classList.add('bad');
+    setFeedback('fbLCM1', false, '同乘 $2$ 之後，$\\dfrac{y}{3}$ 的分母還沒有消失。找找看 $2$ 和 $3$ 的最小公倍數是多少？');
+  }
+}
+function secondLCMChoice(btn, ok){
+  clearChoices('c3b'); btn.classList.add(ok ? 'ok' : 'bad');
+  if(ok){
+    setFeedback('fbLCM2', true, '對！第二式的分母是 $3$ 和 $4$，最小公倍數是 $12$，所以第二式左右兩邊同乘 $12$。');
+    show('secondTransform'); show('readyToSolve'); show('methodArea'); typeset($id('step3'));
+  } else {
+    setFeedback('fbLCM2', false, '只看第二式：分母是 $3$ 和 $4$。它們的最小公倍數是多少？');
+  }
+}
+
+function q4(btn, ok){
+  clearChoices('c4'); btn.classList.add(ok ? 'ok' : 'bad');
+  if(ok){ setFeedback('fb4', true, '很好！最後要把 $x$、$y$ 重新翻回題目的意思。'); show('verifyArea'); restartVerify(); typeset($id('verifyArea')); }
+  else { setFeedback('fb4', false, '數學上求得 $x$、$y$ 還不算完整作答，要回到題目中的「男社員、女社員」。'); }
+}
+
+function updateProgress(activeStep){
+  const names = ['','設未知數','列方程式','調整係數並求解','回答與驗算'];
+  for(let i = 1; i <= 4; i++){
+    const p = $id('s' + i); p.classList.remove('active','done');
+    if(completed.has(i)) p.classList.add('done'); else if(i === activeStep) p.classList.add('active');
+  }
+  $id('progressStatus').textContent = `目前進行：步驟 ${activeStep}｜${names[activeStep]}`;
+}
+function completeStep(n){
+  completed.add(n);
+  if(n < 4){
+    highestUnlocked = Math.max(highestUnlocked, n + 1);
+    const next = $id('step' + (n + 1));
+    next.classList.remove('hidden');
+    updateProgress(n + 1); typeset(next);
+    setTimeout(() => next.scrollIntoView({behavior:'smooth', block:'start'}), 80);
+  } else { updateProgress(4); }
+}
+
+function chooseMethod(m){
+  selectedMethod = m; solveIndex = 0;
+  show('solver'); show('nextSolve'); hide('finishSolve');
+  if(m === 'add'){
+    $id('methodTitle').textContent = '加減消去法：先把同一個未知數的係數調成相同，再利用相減讓它消失。';
+    solveSteps = [
+      {cls:'focus', html:R`$$\begin{cases}3x+2y=144\\4x+3y=204\end{cases}$$`},
+      {cls:'', html:R`為了消去 $y$，第一式乘 $3$：$$9x+6y=432$$`},
+      {cls:'', html:R`第二式乘 $2$：$$8x+6y=408$$`},
+      {cls:'focus', html:R`現在兩式都有 $6y$，相減時 $y$ 會消去：$$\begin{aligned}9x+\cancel{6y}&=432\\-\,(8x+\cancel{6y})&=-408\end{aligned}$$`},
+      {cls:'success', html:R`$$x=24$$`},
+      {cls:'', html:R`把 $x=24$ 代回第一式：$$3(24)+2y=144$$`},
+      {cls:'success', html:R`$$y=36$$`}
+    ];
+  } else {
+    $id('methodTitle').textContent = '代入消去法：先把其中一個未知數表示出來，再把整個式子代入另一式。';
+    solveSteps = [
+      {cls:'focus', html:R`$$\begin{cases}3x+2y=144\\4x+3y=204\end{cases}$$`},
+      {cls:'', html:R`先由第一式整理出 $y$：$$y=72-\frac{3}{2}x$$`},
+      {cls:'focus', html:R`把 $y$ 換成剛剛得到的整個式子：$$4x+3\left(\boxed{72-\frac{3}{2}x}\right)=204$$`},
+      {cls:'', html:R`展開並整理：$$4x+216-\frac{9}{2}x=204$$`},
+      {cls:'success', html:R`$$-\frac12x=-12\quad\Rightarrow\quad x=24$$`},
+      {cls:'', html:R`再把 $x=24$ 代回：$$y=72-\frac32(24)$$`},
+      {cls:'success', html:R`$$y=36$$`}
+    ];
+  }
+  $id('solveLines').innerHTML = solveSteps.map((s,i) => `<div class="op-line ${s.cls}" id="sl${i}">${s.html}</div>`).join('');
+  $id('opNote').textContent = '按「下一步」，觀察式子如何一步一步改變。';
+  typeset($id('solveLines'));
+}
+function restartSolve(){
+  solveIndex = 0;
+  document.querySelectorAll('#solveLines .op-line').forEach(el => el.classList.remove('show'));
+  show('nextSolve'); hide('finishSolve');
+  $id('opNote').textContent = '按「下一步」，觀察式子如何一步一步改變。';
+}
+function revealNext(){
+  if(solveIndex < solveSteps.length){
+    const line = $id('sl' + solveIndex); line.classList.add('show');
+    line.scrollIntoView({behavior:'smooth', block:'nearest'}); solveIndex++;
+  }
+  if(solveIndex >= solveSteps.length){
+    hide('nextSolve'); show('finishSolve');
+    $id('opNote').textContent = '這條解法完成了。'; typeset($id('finishSolve'));
+  }
+}
+function finishMethod(){
+  finishedMethods.add(selectedMethod);
+  show('reflectionPanel');
+  const a = $id('statusAdd'), s = $id('statusSub');
+  if(finishedMethods.has('add')){ a.textContent = '加減消去法：已完成 ✓'; a.className = 'px-3 py-1 rounded-full border bg-green-50 border-green-300 text-green-700'; }
+  if(finishedMethods.has('sub')){ s.textContent = '代入消去法：已完成 ✓'; s.className = 'px-3 py-1 rounded-full border bg-green-50 border-green-300 text-green-700'; }
+  const dlg = $id('reflectionDialogue');
+  if(finishedMethods.size < 2){
+    dlg.innerHTML = '🤔 這樣真的好算嗎？你已完成一種解法。請回到上方改選<b>另一種方法</b>，比較看看哪一種步驟更簡潔。';
+  } else {
+    dlg.textContent = '💬 兩種方法都算得出同樣答案，但「算得出來」和「算得漂亮」不完全一樣。比較一下哪一種方法在這題更省力。';
+    show('compareQuestion'); typeset($id('compareQuestion'));
+  }
+  $id('reflectionPanel').scrollIntoView({behavior:'smooth', block:'center'});
+}
+function compareMethod(btn, answer){
+  clearChoices('c3c');
+  if(answer === 'add'){
+    btn.classList.add('ok');
+    setFeedback('fbCompare', true, '對！加減消去法在這題比較順：整理後只要把 $y$ 的係數調成 $6$，再相減即可；代入法會再次遇到分數。不同題目適合的方法可能不同，重點是先觀察式子的特徵。');
+    show('compareSummary'); typeset($id('compareSummary'));
+  } else {
+    btn.classList.add('bad');
+    setFeedback('fbCompare', false, '再比較一次兩條路徑：哪一種在中途比較少出現分數，也比較快消掉一個未知數？');
+  }
+}
+
+function restartVerify(){
+  verifyIndex = 1;
+  for(let i = 1; i <= 4; i++) $id('vline' + i).classList.remove('show');
+  show('nextVerify'); hide('finishAllBtn');
+}
+function revealVerifyNext(){
+  if(verifyIndex <= 4){
+    const line = $id('vline' + verifyIndex); line.classList.add('show');
+    line.scrollIntoView({behavior:'smooth', block:'nearest'}); verifyIndex++;
+  }
+  if(verifyIndex > 4){ hide('nextVerify'); show('finishAllBtn'); }
+}
+function finishAll(){
+  completed.add(4); updateProgress(4);
+  $id('s4').classList.remove('active'); $id('s4').classList.add('done');
+  $id('progressStatus').textContent = '四個步驟全部完成 ✓';
+  const m = $id('finalMsg'); m.classList.remove('hidden'); m.scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+/* 捲動時，固定進度列會跟著目前閱讀的已解鎖步驟更新 */
+const observer = new IntersectionObserver(entries => {
+  const vis = entries.filter(e => e.isIntersecting && Number(e.target.dataset.step) <= highestUnlocked)
+                     .sort((a,b) => b.intersectionRatio - a.intersectionRatio);
+  if(vis.length){
+    const step = Number(vis[0].target.dataset.step);
+    if(!completed.has(step) || step === highestUnlocked){ updateProgress(step); }
+  }
+}, {threshold:[.25,.5,.7], rootMargin:'-110px 0px -45% 0px'});
+document.querySelectorAll('section[data-step]').forEach(el => observer.observe(el));
+
+window.addEventListener('load', () => { typeset(document.body); });
+</script>
+</body>
+</html>
