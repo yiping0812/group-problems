@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>分組問題｜A-7-5 互動式學習講義</title>
+<title>分組問題｜互動式學習講義</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
@@ -25,8 +25,8 @@
   .katex{font-size:1.06em}
   .katex-display{margin:.5em 0;overflow-x:auto;overflow-y:hidden}
   button{cursor:pointer}
-  .highlight{background:linear-gradient(transparent 58%,#fff0a8 58%);font-weight:800;padding:0 2px}
-  .opt-btn{padding:.625rem .9rem;text-align:left;background:#fff;border:1px solid #cbd5e1;border-radius:.5rem;font-size:15px;font-weight:700;transition:.15s}
+  .highlight{background:linear-gradient(transparent 58%,#fff0a8 58%);padding:0 2px}
+  .opt-btn{padding:.625rem .9rem;text-align:left;background:#fff;border:1px solid #cbd5e1;border-radius:.5rem;font-size:15px;font-weight:400;transition:.15s}
   .opt-btn:hover{border-color:#3b82f6;background:#eff6ff}
   .opt-btn.ok{background:#dcfce7;border-color:#22c55e;color:#166534}
   .opt-btn.bad{background:#fee2e2;border-color:#f87171;color:#991b1b}
@@ -60,7 +60,7 @@
 
   <header class="text-center mb-5">
     <h1 class="text-3xl md:text-4xl font-black text-slate-800 mb-1">📘 分組問題</h1>
-    <p class="text-sm text-slate-500 font-bold">A-7-5 互動式學習講義</p>
+    <p class="text-sm text-slate-500 font-bold">互動式學習講義</p>
   </header>
 
   <!-- 固定進度列 -->
@@ -80,9 +80,9 @@
     <div class="p-4 bg-slate-50 rounded-lg border-l-4 border-blue-500 text-sm mb-4 space-y-2">
       <p>排球社某次活動中，若<span class="highlight">男生每 $2$ 人一組、女生每 $3$ 人一組，兩者合計可分成 $24$ 組</span>。</p>
       <p>若改成<span class="highlight">男生每 $3$ 人一組、女生每 $4$ 人一組，兩者合計可分成 $17$ 組</span>。</p>
-      <p><b>請問男社員與女社員各有多少人？</b></p>
+      <p>請問男社員與女社員各有多少人？</p>
     </div>
-    <p class="font-bold text-sm mb-2">題目真正要我們找的是哪兩個未知數？</p>
+    <p class="text-sm mb-2">題目真正要我們找的是哪兩個未知數？</p>
     <div class="grid gap-2" id="c1">
       <button class="opt-btn" onclick="q1(this,false)">$24$ 組與 $17$ 組</button>
       <button class="opt-btn" onclick="q1(this,true)">男社員人數與女社員人數</button>
@@ -100,11 +100,11 @@
     <h2 class="font-bold text-lg text-emerald-700 mb-3">🚩 步驟 2　根據題意列出二元一次聯立方程式</h2>
     <div class="p-4 bg-slate-50 rounded-lg border text-sm mb-4 space-y-1">
       <div class="font-bold">📌 題目回顧</div>
-      <p>男生每 $2$ 人一組、女生每 $3$ 人一組，兩者合計 <b>$24$ 組</b>。</p>
-      <p>男生每 $3$ 人一組、女生每 $4$ 人一組，兩者合計 <b>$17$ 組</b>。</p>
+      <p>男生每 $2$ 人一組、女生每 $3$ 人一組，兩者合計 $24$ 組。</p>
+      <p>男生每 $3$ 人一組、女生每 $4$ 人一組，兩者合計 $17$ 組。</p>
       <p>已設：男社員有 $x$ 人，女社員有 $y$ 人。</p>
     </div>
-    <p class="font-bold text-sm mb-2">先想一個最關鍵的問題：有 $x$ 位男生，每 $2$ 人一組，會有幾組？</p>
+    <p class="text-sm mb-2">先想一個最關鍵的問題：有 $x$ 位男生，每 $2$ 人一組，會有幾組？</p>
     <div class="grid gap-2" id="c2">
       <button class="opt-btn" onclick="q2(this,false)">$2x$ 組</button>
       <button class="opt-btn" onclick="q2(this,false)">$x+2$ 組</button>
@@ -210,7 +210,7 @@
       <h4 class="font-bold text-sm mb-2">① 先整理第一式</h4>
       <div class="p-3 bg-white rounded-lg border text-center mb-2">$$\frac{x}{2}+\frac{y}{3}=24$$</div>
       <p class="text-xs text-slate-600 mb-3">第一式的分母是 $2$ 和 $3$，最小公倍數是 $6$。</p>
-      <p class="font-bold text-sm mb-2">第一式左右兩邊同乘多少，最有助於把分數係數整理成較簡單的整數？</p>
+      <p class="text-sm mb-2">第一式左右兩邊同乘多少，最有助於把分數係數整理成較簡單的整數？</p>
       <div class="grid gap-2" id="c3a">
         <button class="opt-btn" onclick="firstLCMChoice(this,2)">同乘 $2$</button>
         <button class="opt-btn" onclick="firstLCMChoice(this,6)">同乘 $6$</button>
@@ -234,7 +234,7 @@
       <h4 class="font-bold text-sm mb-2">② 再整理第二式</h4>
       <div class="p-3 bg-white rounded-lg border text-center mb-2">$$\frac{x}{3}+\frac{y}{4}=17$$</div>
       <p class="text-xs text-slate-600 mb-3">第二式的分母是 $3$ 和 $4$，最小公倍數是 $12$。</p>
-      <p class="font-bold text-sm mb-2">第二式左右兩邊同乘多少，最有助於把分數係數整理成較簡單的整數？</p>
+      <p class="text-sm mb-2">第二式左右兩邊同乘多少，最有助於把分數係數整理成較簡單的整數？</p>
       <div class="grid gap-2" id="c3b">
         <button class="opt-btn" onclick="secondLCMChoice(this,false)">同乘 $4$</button>
         <button class="opt-btn" onclick="secondLCMChoice(this,false)">同乘 $6$</button>
@@ -259,7 +259,7 @@
     </div>
 
     <div id="methodArea" class="hidden">
-      <p class="font-bold text-sm mb-2">整理完成後，你想用哪一種方法繼續？</p>
+      <p class="text-sm mb-2">整理完成後，你想用哪一種方法繼續？</p>
       <div class="grid sm:grid-cols-2 gap-2 mb-4">
         <button class="btn-ghost text-left" aria-label="選擇加減消去法" onclick="chooseMethod('add')"><b>加減消去法</b><br><span class="text-xs font-normal">調整係數後，讓其中一個未知數的係數相同，再相減。</span></button>
         <button class="btn-ghost text-left" aria-label="選擇代入消去法" onclick="chooseMethod('sub')"><b>代入消去法</b><br><span class="text-xs font-normal">由其中一式整理出 $x$ 或 $y$，再代入另一式。</span></button>
@@ -283,7 +283,7 @@
           <span id="statusSub" class="px-3 py-1 rounded-full border bg-white text-slate-500">代入消去法：尚未完成</span>
         </div>
         <div id="compareQuestion" class="hidden">
-          <p class="font-bold text-sm mb-2">兩種方法都走過一次後，你覺得這一題哪一種方法比較簡潔？</p>
+          <p class="text-sm mb-2">兩種方法都走過一次後，你覺得這一題哪一種方法比較簡潔？</p>
           <div class="grid gap-2" id="c3c">
             <button class="opt-btn" onclick="compareMethod(this,'add')">加減消去法</button>
             <button class="opt-btn" onclick="compareMethod(this,'sub')">代入消去法</button>
@@ -302,7 +302,7 @@
   <!-- ===== 步驟 4 ===== -->
   <section id="step4" data-step="4" class="hidden bg-white rounded-xl shadow-md p-6 border border-emerald-200 mb-6">
     <h2 class="font-bold text-lg text-emerald-700 mb-3">🚩 步驟 4　依題意寫出正確答案，並驗算</h2>
-    <p class="font-bold text-sm mb-2">求出 $x=24,\;y=36$ 後，答案怎麼寫才完整？</p>
+    <p class="text-sm mb-2">求出 $x=24,\;y=36$ 後，答案怎麼寫才完整？</p>
     <div class="grid gap-2" id="c4">
       <button class="opt-btn" onclick="q4(this,false)">$x=24,\;y=36$</button>
       <button class="opt-btn" onclick="q4(this,true)">男社員 $24$ 人，女社員 $36$ 人</button>
@@ -330,7 +330,7 @@
     </div>
   </section>
 
-  <footer class="text-center text-xs text-slate-400 mt-8">A-7-5 互動式學習講義　分組問題</footer>
+  <footer class="text-center text-xs text-slate-400 mt-8">互動式學習講義　分組問題</footer>
 </div>
 
 <script>
